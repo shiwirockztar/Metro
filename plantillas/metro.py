@@ -12,7 +12,7 @@ NombreNiquia = estaciones["001"]["nombre"]
 
     print(info)"""
 
-def load_stations(path):
+def load_stations(path='stations.info'):
     with open(path,"r") as file:
         file.readline() # lee la primera linea y apunta el cursero e la siguiente linea
         estaciones = {}
@@ -20,8 +20,16 @@ def load_stations(path):
             #aux = line[:-1].split(",") # [:-1] para quitar salto de linea
             aux = line.rstrip().split(",") # Funcion para crear una lista de elementos separados por que tienen una coma para este caso
             estaciones[aux[1]] = {"nombre":aux[0],"latitud":aux[2],"longitud":aux[3]}
-        print(estaciones)
         return estaciones
+
+def load_metro_log(path):
+    with open(path,"r") as file:
+        file.readline() # lee la primera linea y apunta el cursero e la siguiente linea
+        viajes = {}
+        for line in file:
+            aux = line.rstrip().split(" ") 
+            viajes[aux[1]] = {"nombre":aux[0],"latitud":aux[2],"longitud":aux[3]}
+        return viajes
 
 
 def menu(options) :
