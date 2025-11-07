@@ -1,4 +1,16 @@
-# Implemente aquí los menús y el programa principal que invoca las funciones de los otros módulos
+#estaciones ={"001":["Niquia","6.3337783",""]}
+estaciones ={"001":{"nombre":"Niquia", "latitud":"6.3337783","longitud":""}}
+
+
+#NombreNiquia = estaciones["001"][0]
+NombreNiquia = estaciones["001"]["nombre"]
+
+
+"""def load_stations(path):
+    file = open(path,"r")
+    info= file.read()
+
+    print(info)"""
 
 import metro as mt
 #from metro import load_stations, menu_estaciones #incluyo metro.py 

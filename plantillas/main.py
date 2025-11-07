@@ -1,17 +1,39 @@
+# Implemente aquí los menús y el programa principal que invoca las funciones de los otros módulos
+
+# from metro import load_stations, menu_estaciones #incluyo metro.py # si solo voy a usar esas dos funciones
+import metro as mt
 import stations as st
 import system as sys
 
-opcion = ''
-# 1. Mostrar mensaje de bienvenida
+estaciones = mt.load_stations('stations.info') # Cargar las estaciones desde el archivo
+viajes = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
+
+print("Bienvenido al sistema de estadísticas del metro") # 1. Mostrar mensaje de bienvenida
+
 while True:
     # 2. Mostrar el menú principal de opciones
+    opciones = {"1":"Consultar estadísticas generales", "2":"Consultar estadísticas de una estación específica", "3":"Salir del programa"}
     # 3. Preguntar al usuario qué opción desea elegir:
-    #    a. Consultar estadísticas generales
-    #    b. Consultar estadísticas de una estación específica
-    #    c. Salir del programa
-    
+    opcion = mt.menu(opciones) 
+
+    #lista_estaciones = mt.menu(estaciones)
+    # 001 )  {'nombre': 'Niquía', 'latitud': '6.337783', 'longitud': '-75.544365'}
+    # 002 )  {'nombre': 'Bello', 'latitud': '6.330476', 'longitud': '-75.553434'}
+
     if opcion == '1':  # Estadísticas generales
         # 4. Mostrar el submenú para estadísticas generales
+        opciones_generales = {
+            "a":"Número total de usuarios y viajes",
+            "b":"Hora pico",
+            "c":"Estaciones más usadas",
+            "d":"Distancia promedio de viaje",
+            "e":"Ingresos totales",
+            "f":"Número promedio de viajes",
+            "g":"Los 5 trayectos más populares",
+            "h":"Volver al menú principal"
+        }
+        opcion_general = mt.menu(opciones_generales)
+        #mostrar_estadisticas_generales(opcion_general)
         #    a. Número total de usuarios y viajes
         #    b. Hora pico
         #    c. Estaciones más usadas
@@ -21,7 +43,7 @@ while True:
         #    g. Los 5 trayectos más populares
         # 5. Ejecutar la opción seleccionada y mostrar la estadística correspondiente
         pass  # Aquí debes escribir el código para manejar la opción 1
-    
+
     elif opcion == '2':  # Estadísticas por estación
         # Aquí va la sangría correspondiente
         # 6. Mostrar el submenú para estadísticas de estación
