@@ -6,7 +6,7 @@ import stations as st
 import system as sys
 
 estaciones = mt.load_stations('stations.info') # Cargar las estaciones desde el archivo
-viajes = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
+usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
 
 print("Bienvenido al sistema de estadísticas del metro") # 1. Mostrar mensaje de bienvenida
 
@@ -23,24 +23,20 @@ while True:
     if opcion == '1':  # Estadísticas generales
         # 4. Mostrar el submenú para estadísticas generales
         opciones_generales = {
-            "a":"Número total de usuarios y viajes",
-            "b":"Hora pico",
-            "c":"Estaciones más usadas",
-            "d":"Distancia promedio de viaje",
-            "e":"Ingresos totales",
-            "f":"Número promedio de viajes",
-            "g":"Los 5 trayectos más populares",
+            "a":"Número total de usuarios y viajes", #    a. Número total de usuarios y viajes
+            "b":"Hora pico", #    b. Hora pico
+            "c":"Estaciones más usadas", #    c. Estaciones más usadas
+            "d":"Distancia promedio de viaje", #    d. Distancia promedio de viaje
+            "e":"Ingresos totales", #    e. Ingresos totales
+            "f":"Número promedio de viajes", #    f. Número promedio de viajes
+            "g":"Los 5 trayectos más populares", #    g. Los 5 trayectos más populares
             "h":"Volver al menú principal"
         }
         opcion_general = mt.menu(opciones_generales)
-        #mostrar_estadisticas_generales(opcion_general)
-        #    a. Número total de usuarios y viajes
-        #    b. Hora pico
-        #    c. Estaciones más usadas
-        #    d. Distancia promedio de viaje
-        #    e. Ingresos totales
-        #    f. Número promedio de viajes
-        #    g. Los 5 trayectos más populares
+        if opcion_general == 'a':
+            print("Ha seleccionado la opción a: Número total de usuarios y viajes")
+            print(f"Total de usuarios: {len(usuarios)} y total de viajes: {sys.contar_salidas(usuarios)}")
+            pass
         # 5. Ejecutar la opción seleccionada y mostrar la estadística correspondiente
         pass  # Aquí debes escribir el código para manejar la opción 1
 

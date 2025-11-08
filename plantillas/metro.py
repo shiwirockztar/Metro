@@ -20,24 +20,21 @@ def load_metro_log(path = 'metro.log'):
     # path: Ruta del archivo de log del metro.
     # Retorna:
     # Un diccionario con la información de los viajes.
+    usuarios = {}
     with open(path,"r") as file:
         file.readline() # lee la primera linea y apunta el cursor e la siguiente linea
-        viajes = {}
+        
         for line in file:
-            aux = line.rstrip().split(" ")
-            viajes[aux[1]] = {"STATION_ID":aux[0],"EVENT_TIME":aux[2],"EVENT_TYPE":aux[3]}
-    return viajes
-    
-    # Ejemplo de uso:
-    # opciones = {"1":"a", "2":"b","3":"c"}
-    # menu(opciones) -> devuelve la opción seleccionada por el usuario.
-    with open(path,"r") as file:
-        file.readline() # lee la primera linea y apunta el cursero e la siguiente linea
-        viajes = {}
-        for line in file:
-            aux = line.rstrip().split(" ") 
-            viajes[aux[1]] = {"nombre":aux[0],"latitud":aux[2],"longitud":aux[3]}
-        return viajes
+            aux = line.strip().split() # Funcion para crear una lista de elementos separados por que tienen un espacio ['010', '68409606', '04:09', 'IN']
+            user_id = aux[1]
+
+            evento = {"STATION_ID":aux[0],"EVENT_TIME":aux[2],"EVENT_TYPE":aux[3]}
+            # Si el usuario ya existe, agregamos a la lista
+            if user_id in usuarios:
+                usuarios[user_id].append(evento)
+            else:
+                usuarios[user_id] = [evento]  # Crear lista
+    return usuarios
 
 
 def menu(options) :

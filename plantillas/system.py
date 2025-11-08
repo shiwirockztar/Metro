@@ -38,3 +38,31 @@ def geodistance(P1,P2):
     #Cálculo de la distancia euclidiana entre los dos puntos
     D=((x2-x1)**2 + (y2-y1)**2 + (z2-z1)**2)**(1/2)
     return D
+
+def contar_salidas_por_usuario(usuarios): 
+    # Esta función cuenta el número de salidas de cada usuario.
+    # Argumentos:
+    # usuarios: Un diccionario con la información de los viajes.
+    # Retorna:
+    # Un diccionario con el conteo de salidas por usuario.
+    salidas = {}
+    for user_id, eventos in usuarios.items():
+        count = 0
+        for evento in eventos:
+            if evento["EVENT_TYPE"] == "OUT":
+                count += 1
+        salidas[user_id] = count  
+    return salidas
+
+def contar_salidas(usuarios): 
+    # Esta función cuenta el número total de salidas en el sistema.
+    # Argumentos:
+    # usuarios: Un diccionario con la información de los viajes.
+    # Retorna:
+    # El número total de salidas.
+    total_salidas = 0
+    for eventos in usuarios.values():
+        for evento in eventos:
+            if evento["EVENT_TYPE"] == "OUT":
+                total_salidas += 1
+    return total_salidas
