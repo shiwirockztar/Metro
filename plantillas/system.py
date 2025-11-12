@@ -81,3 +81,25 @@ def hora_pico(usuarios):
     hora_pico = horas.index(max(horas))  # Encontrar la hora con más salidas
     return hora_pico
 
+def estaciones_mas_usadas(usuarios, estaciones):
+    # Esta función determina las estaciones más usadas en el sistema.
+    # Argumentos:
+    # usuarios: Un diccionario con la información de los viajes.
+    # estaciones: Un diccionario con la información de las estaciones.
+    # Retorna:
+    # Un diccionario con las estaciones más usadas y su conteo.
+    uso_estaciones = {}
+    for eventos in usuarios.values():
+        for evento in eventos:
+            estacion_id = evento["STATION_ID"]
+            if estacion_id in uso_estaciones:
+                uso_estaciones[estacion_id] += 1
+            else:
+                uso_estaciones[estacion_id] = 1
+    # Convertir IDs a nombres de estaciones
+    uso_estaciones_nombres = {}
+    for estacion_id, conteo in uso_estaciones.items():
+        nombre_estacion = estaciones.get(estacion_id, {}).get("nombre", "Desconocida")
+        uso_estaciones_nombres[nombre_estacion] = conteo
+    return uso_estaciones_nombres
+

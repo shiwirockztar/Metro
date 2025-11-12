@@ -55,6 +55,19 @@ while True:
             print("Ha seleccionado la opción b: Hora pico")
             hora_pico = sys.hora_pico(usuarios)
             print(f"La hora pico es a las {hora_pico}:00 horas")
+            pass  # Aquí debes escribir el código para manejar la opción 2
+        if opcion_general == 'c':
+            time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+            print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+            print("\033[32m")  # color verde
+            print("Ha seleccionado la opción c: Estaciones más usadas")
+            estaciones_mas_usadas = sys.estaciones_mas_usadas(usuarios, estaciones)
+            print("Las estaciones más usadas son:")
+            for estacion, usos in estaciones_mas_usadas.items():
+                print(f"- {estacion}: {usos} usos")
+            pass  # Aquí debes escribir el código para manejar la opción 3
+        if opcion_general == 'h':  # Volver al menú principal
+            continue
         pass  
 
     elif opcion == '2':  # Estadísticas por estación
