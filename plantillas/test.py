@@ -36,3 +36,5 @@ time.sleep(2)  # Pausa de 2 segundos antes de limpiar la pantalla
 print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
 print("\033[39m")  # Secuencia de escape ANSI para restablecer el color del texto
 print("\033[36m") # Secuencia de escape ANSI para establecer el color del texto a cian
+# Secuencia de escape ANSI para establecer el color del texto a rojo: \033[31m
+#

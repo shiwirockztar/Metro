@@ -66,3 +66,18 @@ def contar_salidas(usuarios):
             if evento["EVENT_TYPE"] == "OUT":
                 total_salidas += 1
     return total_salidas
+
+def hora_pico(usuarios):
+    # Esta función determina la hora pico del sistema.
+    # Argumentos:
+    # usuarios: Un diccionario con la información de los viajes.
+    # Retorna:
+    # La hora pico (entera) del sistema.
+    horas = [0] * 24  # Lista para contar salidas por hora
+    for eventos in usuarios.values():
+        for evento in eventos:
+            hora = int(evento["EVENT_TIME"].split(":")[0])  # Extraer la hora
+            horas[hora] += 1  # Incrementar el conteo para esa hora
+    hora_pico = horas.index(max(horas))  # Encontrar la hora con más salidas
+    return hora_pico
+

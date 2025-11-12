@@ -4,6 +4,7 @@
 import metro as mt
 import stations as st
 import system as sys
+import time
 
 estaciones = mt.load_stations('stations.info') # Cargar las estaciones desde el archivo
 usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
@@ -11,6 +12,8 @@ usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde
 print("Bienvenido al sistema de estadísticas del metro") # 1. Mostrar mensaje de bienvenida
 
 while True:
+    print("\033[39m")  # Secuencia de escape ANSI para restablecer el color del texto
+        
     # 2. Mostrar el menú principal de opciones
     opciones = {"1":"Consultar estadísticas generales", "2":"Consultar estadísticas de una estación específica", "3":"Salir del programa"}
     # 3. Preguntar al usuario qué opción desea elegir:
@@ -18,9 +21,12 @@ while True:
 
     #lista_estaciones = mt.menu(estaciones)
     # 001 )  {'nombre': 'Niquía', 'latitud': '6.337783', 'longitud': '-75.544365'}
-    # 002 )  {'nombre': 'Bello', 'latitud': '6.330476', 'longitud': '-75.553434'}
-
+    # 002 )  {'nombre': 'Bello', 'latitud': '6.330476', 'longitud': '-75.553434'}    
+    
     if opcion == '1':  # Estadísticas generales
+        time.sleep(0.5)  # Pausa de 0.5 segundos antes de limpiar la pantalla
+        print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+        print("\033[36m")  # Secuencia de escape ANSI para restablecer el color del texto
         # 4. Mostrar el submenú para estadísticas generales
         opciones_generales = {
             "a":"Número total de usuarios y viajes", #    a. Número total de usuarios y viajes
@@ -32,15 +38,31 @@ while True:
             "g":"Los 5 trayectos más populares", #    g. Los 5 trayectos más populares
             "h":"Volver al menú principal"
         }
+        
+        # 5. Ejecutar la opción seleccionada y mostrar la estadística correspondiente
         opcion_general = mt.menu(opciones_generales)
         if opcion_general == 'a':
+            time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+            print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+            print("\033[32m")  # color morado
             print("Ha seleccionado la opción a: Número total de usuarios y viajes")
             print(f"Total de usuarios: {len(usuarios)} y total de viajes: {sys.contar_salidas(usuarios)}")
-            pass
-        # 5. Ejecutar la opción seleccionada y mostrar la estadística correspondiente
-        pass  # Aquí debes escribir el código para manejar la opción 1
+            pass  # Aquí debes escribir el código para manejar la opción 1
+        if opcion_general == 'b':
+            time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+            print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+            print("\033[32m")  # color verde
+            print("Ha seleccionado la opción b: Hora pico")
+            hora_pico = sys.hora_pico(usuarios)
+            print(f"La hora pico es a las {hora_pico}:00 horas")
+        pass  
 
     elif opcion == '2':  # Estadísticas por estación
+
+        time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+        print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+        print("\033[36m")  # Secuencia de escape ANSI para restablecer el color del texto
+        
         # Aquí va la sangría correspondiente
         # 6. Mostrar el submenú para estadísticas de estación
         #    a. Total de viajes en la estación
