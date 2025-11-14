@@ -7,7 +7,8 @@ import system as sys
 import time
 
 estaciones = mt.load_stations('stations.info') # Cargar las estaciones desde el archivo
-usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
+#usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
+usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desde el archivo
 
 print("Bienvenido al sistema de estadísticas del metro") # 1. Mostrar mensaje de bienvenida
 
@@ -17,7 +18,7 @@ while True:
     # 2. Mostrar el menú principal de opciones
     opciones = {"1":"Consultar estadísticas generales", "2":"Consultar estadísticas de una estación específica", "3":"Salir del programa"}
     # 3. Preguntar al usuario qué opción desea elegir:
-    opcion = mt.menu(opciones) 
+    opcion = mt.menu(opciones)
 
     #lista_estaciones = mt.menu(estaciones)
     # 001 )  {'nombre': 'Niquía', 'latitud': '6.337783', 'longitud': '-75.544365'}
@@ -41,6 +42,7 @@ while True:
         
         # 5. Ejecutar la opción seleccionada y mostrar la estadística correspondiente
         opcion_general = mt.menu(opciones_generales)
+        
         if opcion_general == 'a':
             time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
             print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
@@ -48,6 +50,7 @@ while True:
             print("Ha seleccionado la opción a: Número total de usuarios y viajes")
             print(f"Total de usuarios: {len(usuarios)} y total de viajes: {sys.contar_salidas(usuarios)}")
             pass  # Aquí debes escribir el código para manejar la opción 1
+        
         if opcion_general == 'b':
             time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
             print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
@@ -56,16 +59,27 @@ while True:
             hora_pico = sys.hora_pico(usuarios)
             print(f"La hora pico es a las {hora_pico}:00 horas")
             pass  # Aquí debes escribir el código para manejar la opción 2
+        
         if opcion_general == 'c':
             time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
             print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
             print("\033[32m")  # color verde
             print("Ha seleccionado la opción c: Estaciones más usadas")
-            estaciones_mas_usadas = sys.estaciones_mas_usadas(usuarios, estaciones)
+            estaciones_mas_usadas = sys.estaciones_mas_usadas(usuarios, estaciones) # {'Parque Berrio': 6, 'Bello': 2, 'Niquía': 6, 'Caribe': 2}
+            
             print("Las estaciones más usadas son:")
             for estacion, usos in estaciones_mas_usadas.items():
                 print(f"- {estacion}: {usos} usos")
             pass  # Aquí debes escribir el código para manejar la opción 3
+        
+        if opcion_general == 'd':
+            time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+            print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+            print("\033[32m")  # color verde
+            print("Ha seleccionado la opción d: Distancia promedio de viaje")
+            distancia_promedio = sys.distancia_promedio_viaje(usuarios, estaciones)
+            print(f"La distancia promedio de viaje es de {distancia_promedio:.2f} metros")
+            pass  # Aquí debes escribir el código para manejar la opción 4
         if opcion_general == 'h':  # Volver al menú principal
             continue
         pass  

@@ -96,10 +96,62 @@ def estaciones_mas_usadas(usuarios, estaciones):
                 uso_estaciones[estacion_id] += 1
             else:
                 uso_estaciones[estacion_id] = 1
-    # Convertir IDs a nombres de estaciones
+    # Convertir IDs a nombres de estaciones {'010': 6, '002': 2, '001': 6, '006': 2}
     uso_estaciones_nombres = {}
     for estacion_id, conteo in uso_estaciones.items():
-        nombre_estacion = estaciones.get(estacion_id, {}).get("nombre", "Desconocida")
+        # '010': {'nombre': 'Parque Berrio', 'latitud': '6.250490', 'longitud': '-75.568243'},
+        nombre_estacion = estaciones.get(estacion_id).get("nombre")
+        #nombre_estacion = estaciones.get(estacion_id, {}).get("nombre", "Desconocido")
         uso_estaciones_nombres[nombre_estacion] = conteo
     return uso_estaciones_nombres
 
+def distancia_promedio_viaje(usuarios, estaciones):
+    # Esta función calcula la distancia promedio de los viajes en el sistema.
+    # Argumentos:
+    # usuarios: Un diccionario con la información de los viajes.
+    # estaciones: Un diccionario con la información de las estaciones.
+    # Retorna:
+    # La distancia promedio de los viajes en metros.
+    total_distancia = 0
+    total_viajes = 0
+    #print(usuarios)
+    for viajes in usuarios.values():
+        #'42433478': [{'STATION_ID': '011', 'EVENT_TIME': '04:12', 'EVENT_TYPE': 'IN'}, {'STATION_ID': '012', 'EVENT_TIME': '04:19', 'EVENT_TYPE': 'OUT'}
+        print(viajes)
+        if (len(viajes) > 1) and (viajes[0]["EVENT_TYPE"] == "OUT" and viajes[1]["EVENT_TYPE"] == "IN"):
+            P1 = [float(estaciones[estacion_salida_id]["latitud"]), float(estaciones[estacion_salida_id]["longitud"])]
+            P2 = [float(estaciones[estacion_llegada_id]["latitud"]), float(estaciones[estacion_llegada_id]["longitud"])]
+            distancia = geodistance(P1, P2)
+            total_distancia += distancia
+        #for key, value in viajes.items():
+        #    print(key, value)
+    if total_viajes == 0:
+        return 0
+    distancia_promedio = total_distancia / total_viajes
+    return distancia_promedio
+
+def distancia_promedio_viajeB(usuarios, estaciones):
+    # Esta función calcula la distancia promedio de los viajes en el sistema.
+    # Argumentos:
+    # usuarios: Un diccionario con la información de los viajes.
+    # estaciones: Un diccionario con la información de las estaciones.
+    # Retorna:
+    # La distancia promedio de los viajes en metros.
+    total_distancia = 0
+    total_viajes = 0
+    print(usuarios)
+    for usuario in usuarios.values():
+        #'42433478': [{'STATION_ID': '011', 'EVENT_TIME': '04:12', 'EVENT_TYPE': 'IN'}, {'STATION_ID': '012', 'EVENT_TIME': '04:19', 'EVENT_TYPE': 'OUT'}
+        for i in range(len(usuario) - 1):
+            if usuario[i]["EVENT_TYPE"] == "OUT" and usuario[i + 1]["EVENT_TYPE"] == "IN":
+                estacion_salida_id = usuario[i]["STATION_ID"]
+                estacion_llegada_id = usuario[i + 1]["STATION_ID"]
+                P1 = [float(estaciones[estacion_salida_id]["latitud"]), float(estaciones[estacion_salida_id]["longitud"])]
+                P2 = [float(estaciones[estacion_llegada_id]["latitud"]), float(estaciones[estacion_llegada_id]["longitud"])]
+                distancia = geodistance(P1, P2)
+                total_distancia += distancia
+                total_viajes += 1
+    if total_viajes == 0:
+        return 0
+    distancia_promedio = total_distancia / total_viajes
+    return distancia_promedio
