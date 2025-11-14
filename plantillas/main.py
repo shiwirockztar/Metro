@@ -80,6 +80,15 @@ while True:
             distancia_promedio = sys.distancia_promedio_viaje(usuarios, estaciones)
             print(f"La distancia promedio de viaje es de {distancia_promedio:.2f} metros")
             pass  # Aquí debes escribir el código para manejar la opción 4
+
+        if opcion_general == 'e':
+            time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+            print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+            print("\033[32m")  # color verde
+            print("Ha seleccionado la opción e: Ingresos totales")
+            # Aquí debes escribir el código para manejar la opción 5
+            pass
+        
         if opcion_general == 'h':  # Volver al menú principal
             continue
         pass  
