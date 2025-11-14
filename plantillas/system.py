@@ -130,3 +130,36 @@ def distancia_promedio_viaje(usuarios, estaciones):
     distancia_promedio = total_distancia / total_viajes
     return distancia_promedio
 
+def contar_entradas(usuarios): 
+    # Esta función cuenta el número total de salidas en el sistema.
+    # Argumentos:
+    # usuarios: Un diccionario con la información de los viajes.
+    # Retorna:
+    # El número total de entradas.
+    total_entradas = 0
+    for eventos in usuarios.values():
+        for evento in eventos:
+            if evento["EVENT_TYPE"] == "IN":
+                total_entradas += 1
+    return total_entradas
+
+def top_trayectos_populares(usuarios):
+    # Esta función determina los 5 trayectos más populares en el sistema.
+    # Argumentos:
+    # usuarios: Un diccionario con la información de los viajes.
+    # Retorna:
+    # Una lista con los 5 trayectos más populares y su conteo.
+    trayectos = {}
+    for eventos in usuarios.values():
+        for i in range(len(eventos) - 1):
+            if eventos[i]["EVENT_TYPE"] == "IN" and eventos[i + 1]["EVENT_TYPE"] == "OUT":
+                origen = eventos[i]["STATION_ID"]
+                destino = eventos[i + 1]["STATION_ID"]
+                trayecto = (origen, destino)
+                if trayecto in trayectos:
+                    trayectos[trayecto] += 1
+                else:
+                    trayectos[trayecto] = 1
+    # Ordenar los trayectos por conteo y obtener los 5 más populares
+    top_5_trayectos = sorted(trayectos.items(), key=lambda x: x[1], reverse=True)[:5]
+    return top_5_trayectos

@@ -7,8 +7,8 @@ import system as sys
 import time
 
 estaciones = mt.load_stations('stations.info') # Cargar las estaciones desde el archivo
-#usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
-usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desde el archivo
+usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
+#usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desde el archivo
 
 print("Bienvenido al sistema de estadísticas del metro") # 1. Mostrar mensaje de bienvenida
 
@@ -26,7 +26,7 @@ while True:
     
     if opcion == '1':  # Estadísticas generales
         time.sleep(0.5)  # Pausa de 0.5 segundos antes de limpiar la pantalla
-        print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+        mt.limpiar_pantalla()
         print("\033[36m")  # Secuencia de escape ANSI para restablecer el color del texto
         # 4. Mostrar el submenú para estadísticas generales
         opciones_generales = {
@@ -45,7 +45,7 @@ while True:
         
         if opcion_general == 'a':
             time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
-            print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+            mt.limpiar_pantalla()
             print("\033[32m")  # color morado
             print("Ha seleccionado la opción a: Número total de usuarios y viajes")
             print(f"Total de usuarios: {len(usuarios)} y total de viajes: {sys.contar_salidas(usuarios)}")
@@ -53,7 +53,7 @@ while True:
         
         if opcion_general == 'b':
             time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
-            print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+            mt.limpiar_pantalla()
             print("\033[32m")  # color verde
             print("Ha seleccionado la opción b: Hora pico")
             hora_pico = sys.hora_pico(usuarios)
@@ -62,7 +62,7 @@ while True:
         
         if opcion_general == 'c':
             time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
-            print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+            mt.limpiar_pantalla()
             print("\033[32m")  # color verde
             print("Ha seleccionado la opción c: Estaciones más usadas")
             estaciones_mas_usadas = sys.estaciones_mas_usadas(usuarios, estaciones) # {'Parque Berrio': 6, 'Bello': 2, 'Niquía': 6, 'Caribe': 2}
@@ -74,7 +74,7 @@ while True:
         
         if opcion_general == 'd':
             time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
-            print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+            mt.limpiar_pantalla()
             print("\033[32m")  # color verde
             print("Ha seleccionado la opción d: Distancia promedio de viaje")
             distancia_promedio = sys.distancia_promedio_viaje(usuarios, estaciones)
@@ -83,12 +83,32 @@ while True:
 
         if opcion_general == 'e':
             time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
-            print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+            mt.limpiar_pantalla()
             print("\033[32m")  # color verde
             print("Ha seleccionado la opción e: Ingresos totales")
+            print(f"Total de entradas: {sys.contar_entradas(usuarios)}")
             # Aquí debes escribir el código para manejar la opción 5
             pass
-        
+
+        if opcion_general == 'f':
+            time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+            mt.limpiar_pantalla()
+            print("\033[32m")  # color verde
+            print("Ha seleccionado la opción f: Número promedio de viajes")
+            promedio_viajes = sys.contar_salidas(usuarios)/len(usuarios)
+            print(f"El número promedio de viajes es de {promedio_viajes:.2f}")
+            pass  # Aquí debes escribir el código para manejar la opción 6
+
+        if opcion_general == 'g':
+            time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+            mt.limpiar_pantalla()
+            print("\033[32m")  # color verde
+            print("Ha seleccionado la opción g: Los 5 trayectos más populares")
+            top_trayectos = sys.top_trayectos_populares(usuarios)
+            print("Los 5 trayectos más populares son:")
+            # Aquí debes escribir el código para manejar la opción 7
+            pass
+
         if opcion_general == 'h':  # Volver al menú principal
             continue
         pass  
@@ -96,7 +116,7 @@ while True:
     elif opcion == '2':  # Estadísticas por estación
 
         time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
-        print("\033[2J")  # Secuencia de escape ANSI para limpiar la pantalla
+        mt.limpiar_pantalla()
         print("\033[36m")  # Secuencia de escape ANSI para restablecer el color del texto
         
         # Aquí va la sangría correspondiente

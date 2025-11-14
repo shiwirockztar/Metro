@@ -1,4 +1,9 @@
 
+def limpiar_pantalla(espacios = 40):
+    # Esta función limpia la pantalla de la consola.
+    print("\n"*espacios)
+    print("\033[H")   # Secuencia de escape ANSI para mover el cursor a la posición (0,0)
+
 def load_stations(path = 'stations.info'):
     # Esta función retorna un diccionario con la información de las estaciones del metro.
     # Argumentos:
