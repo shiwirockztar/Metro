@@ -151,6 +151,19 @@ def top_trayectos_populares(usuarios):
     # Una lista con los 5 trayectos más populares y su conteo.
     trayectos = {}
     for eventos in usuarios.values():
+        print(eventos)
+    # Ordenar los trayectos por conteo y obtener los 5 más populares
+    top_5_trayectos = sorted(trayectos.items(), key=lambda x: x[1], reverse=True)[:5]
+    return top_5_trayectos
+
+def top_trayectos_popularesB(usuarios):
+    # Esta función determina los 5 trayectos más populares en el sistema.
+    # Argumentos:
+    # usuarios: Un diccionario con la información de los viajes.
+    # Retorna:
+    # Una lista con los 5 trayectos más populares y su conteo.
+    trayectos = {}
+    for eventos in usuarios.values():
         for i in range(len(eventos) - 1):
             if eventos[i]["EVENT_TYPE"] == "IN" and eventos[i + 1]["EVENT_TYPE"] == "OUT":
                 origen = eventos[i]["STATION_ID"]
