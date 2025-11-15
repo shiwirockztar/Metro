@@ -117,18 +117,21 @@ def distancia_promedio_viaje(usuarios, estaciones):
     for viajes in usuarios.values():
         #'42433478': [{'STATION_ID': '011', 'EVENT_TIME': '04:12', 'EVENT_TYPE': 'IN'}, {'STATION_ID': '012', 'EVENT_TIME': '04:19', 'EVENT_TYPE': 'OUT'}
         #print(viajes)
-        
-        if (len(viajes) > 1) and (viajes[0]["EVENT_TYPE"] == "IN" and viajes[1]["EVENT_TYPE"] == "OUT"):
-            P1 = [float(estaciones[viajes[0]["STATION_ID"]]["latitud"]), float(estaciones[viajes[0]["STATION_ID"]]["longitud"])]
-            P2 = [float(estaciones[viajes[1]["STATION_ID"]]["latitud"]), float(estaciones[viajes[1]["STATION_ID"]]["longitud"])]
-            distancia = geodistance(P1, P2)
-            total_distancia += distancia
-            total_viajes += 1
-            #print("Distancia entre " + estaciones[viajes[0]["STATION_ID"]]["nombre"] + " y " + estaciones[viajes[1]["STATION_ID"]]["nombre"] + ": " + str(distancia) + " metros")
+        if len(viajes) > 1:
+            for i in viajes:
+                #print(i)
+                if(i["EVENT_TYPE"] == "IN"):
+                    #print(i) {'STATION_ID': '021', 'EVENT_TIME': '22:53', 'EVENT_TYPE': 'IN'}
+                    P1 = [float(estaciones[i["STATION_ID"]]["latitud"]), float(estaciones[i["STATION_ID"]]["longitud"])]
+                    P2 = [float(estaciones[viajes[viajes.index(i)+1]["STATION_ID"]]["latitud"]), float(estaciones[viajes[viajes.index(i)+1]["STATION_ID"]]["longitud"])]
+                    distancia = geodistance(P1, P2)
+                    total_distancia += distancia
+                    total_viajes += 1
     if total_viajes == 0:
         return 0
     distancia_promedio = total_distancia / total_viajes
     return distancia_promedio
+
 
 def contar_entradas(usuarios): 
     # Esta función cuenta el número total de salidas en el sistema.
@@ -152,6 +155,7 @@ def top_trayectos_populares(usuarios):
     trayectos = {}
     for eventos in usuarios.values():
         print(eventos)
+        print("\n")
     # Ordenar los trayectos por conteo y obtener los 5 más populares
     top_5_trayectos = sorted(trayectos.items(), key=lambda x: x[1], reverse=True)[:5]
     return top_5_trayectos
