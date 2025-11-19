@@ -9,14 +9,17 @@ import system as sys
 import time
 
 estaciones = mt.load_stations('stations.info') # Cargar las estaciones desde el archivo
-#usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desde el archivo
-usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
+usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desde el archivo
+#usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
 
-top_trayectos = sys.top_trayectos_populares(usuarios, estaciones)
-print( top_trayectos )
-print("Los 5 trayectos más populares son:")
-for (origen, destino), conteo in top_trayectos:
-    print(f"- {origen} -> {destino}: {conteo} viajes")
+
+#total_viajes = st.total_viajes_estacion(usuarios, '012')
+#print(f'Total de viajes en la estación seleccionada: {total_viajes}')
+#lista_estaciones = st.listar_estaciones(estaciones)
+#estacion_seleccionada = mt.menu(lista_estaciones)
+#print(estacion_seleccionada)
+hora_pico = st.hora_pico_estacion(usuarios, '020')
+print(f'La hora pico de la estación seleccionada es: {hora_pico}:00 horas')
 
 
 import math

@@ -53,9 +53,11 @@ def menu(options) :
     # opciones = {"1":"a", "2":"b","3":"c"}
     # menu(opciones) -> devuelve la opción seleccionada por el usuario.
     while True:
+        #print(options)
         for k, v in options.items() :
             print(f"{k} )  {v}")
         ele = input("Seleccione una opción: ")
+        #print(f"Opción seleccionada: {ele} : ", options)
         if ele in options :
             return ele
     

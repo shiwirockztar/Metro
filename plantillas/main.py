@@ -120,15 +120,51 @@ while True:
         time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
         mt.limpiar_pantalla()
         print("\033[36m")  # Secuencia de escape ANSI para restablecer el color del texto
-        
-        # Aquí va la sangría correspondiente
+        print("Ha seleccionado la opción 2: Consultar estadísticas de una estación específica")
+        # 5. Mostrar el menú de estaciones y permitir al usuario seleccionar una estación
+        print("Seleccione una estación:")
+        lista_estaciones = st.listar_estaciones(estaciones)
+        estacion_seleccionada = mt.menu(lista_estaciones)
+        mt.limpiar_pantalla()
+
         # 6. Mostrar el submenú para estadísticas de estación
-        #    a. Total de viajes en la estación
-        #    b. Horas pico de ingreso y salida
-        #    c. Estaciones de origen y destino más comunes
-        #    d. Cantidad de usuarios que ingresaron por hora
-        #    e. Cantidad de usuarios que salieron por hora
+        print(f"Estadísticas para la estación: {lista_estaciones[estacion_seleccionada]}")
+        opciones_estacion = {"a": "Total de viajes en la estación",
+                             "b": "Horas pico de ingreso y salida",
+                             "c": "Estaciones de origen y destino más comunes",
+                             "d": "Cantidad de usuarios que ingresaron por hora",
+                             "e": "Cantidad de usuarios que salieron por hora"
+                    }
+        opcion_estacion = mt.menu(opciones_estacion)
+
         # 7. Ejecutar la opción seleccionada y mostrar la estadística correspondiente
+        if opcion_estacion == 'a':
+            time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+            mt.limpiar_pantalla()
+            print("\033[32m")  # color morado
+            print("Ha seleccionado la opción a: Total de viajes en la estación", lista_estaciones[estacion_seleccionada])
+            total_viajes = st.total_viajes_estacion(usuarios, estacion_seleccionada)
+            print(f'Total de viajes en la estación seleccionada: {total_viajes}')
+            pass  # Aquí debes escribir el código para manejar la opción 1
+
+        if opcion_estacion == 'b':
+            time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+            mt.limpiar_pantalla()
+            print("\033[32m")  # color verde
+            print("Ha seleccionado la opción b: Horas pico de ingreso y salida")
+            hora_pico = st.hora_pico_estacion(usuarios, estacion_seleccionada)
+            print(f'La hora pico de la estación seleccionada es: {hora_pico}:00 horas')
+            pass  # Aquí debes escribir el código para manejar la opción 2
+
+        if opcion_estacion == 'c':
+            time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+            mt.limpiar_pantalla()
+            print("\033[32m")  # color verde
+            print("Ha seleccionado la opción c: Estaciones de origen y destino más comunes")
+            pass  # Aquí debes escribir el código para manejar la opción 2
+
+        if opcion_estacion == 'f':
+            continue  # Aquí debes escribir el código para manejar la opción 6
         pass  # Aquí debes escribir el código para manejar la opción 2
 
     elif opcion == '3':  # Salir del programa
