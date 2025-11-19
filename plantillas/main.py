@@ -104,8 +104,10 @@ while True:
             mt.limpiar_pantalla()
             print("\033[32m")  # color verde
             print("Ha seleccionado la opción g: Los 5 trayectos más populares")
-            top_trayectos = sys.top_trayectos_populares(usuarios)
+            top_trayectos = sys.top_trayectos_populares(usuarios, estaciones)
             print("Los 5 trayectos más populares son:")
+            for (origen, destino), conteo in top_trayectos:
+                print(f"- {origen} -> {destino}: {conteo} viajes")
             # Aquí debes escribir el código para manejar la opción 7
             pass
 

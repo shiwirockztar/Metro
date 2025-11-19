@@ -146,21 +146,8 @@ def contar_entradas(usuarios):
                 total_entradas += 1
     return total_entradas
 
-def top_trayectos_populares(usuarios):
-    # Esta función determina los 5 trayectos más populares en el sistema.
-    # Argumentos:
-    # usuarios: Un diccionario con la información de los viajes.
-    # Retorna:
-    # Una lista con los 5 trayectos más populares y su conteo.
-    trayectos = {}
-    for eventos in usuarios.values():
-        print(eventos)
-        print("\n")
-    # Ordenar los trayectos por conteo y obtener los 5 más populares
-    top_5_trayectos = sorted(trayectos.items(), key=lambda x: x[1], reverse=True)[:5]
-    return top_5_trayectos
 
-def top_trayectos_popularesB(usuarios):
+def top_trayectos_populares(usuarios, estaciones):
     # Esta función determina los 5 trayectos más populares en el sistema.
     # Argumentos:
     # usuarios: Un diccionario con la información de los viajes.
@@ -168,15 +155,19 @@ def top_trayectos_popularesB(usuarios):
     # Una lista con los 5 trayectos más populares y su conteo.
     trayectos = {}
     for eventos in usuarios.values():
-        for i in range(len(eventos) - 1):
-            if eventos[i]["EVENT_TYPE"] == "IN" and eventos[i + 1]["EVENT_TYPE"] == "OUT":
-                origen = eventos[i]["STATION_ID"]
-                destino = eventos[i + 1]["STATION_ID"]
-                trayecto = (origen, destino)
-                if trayecto in trayectos:
-                    trayectos[trayecto] += 1
-                else:
-                    trayectos[trayecto] = 1
+        #print(eventos) # [{'STATION_ID': '011', 'EVENT_TIME': '22:57', 'EVENT_TYPE': 'IN'}, {'STATION_ID': '012', 'EVENT_TIME': '23:12', 'EVENT_TYPE': 'OUT'}]
+        print("\n")
+        if len(eventos) > 1 :
+            for eve in eventos:
+                if eve["EVENT_TYPE"] == "IN" and eventos[eventos.index(eve)+1]["EVENT_TYPE"] == "OUT":
+                    origen = eve["STATION_ID"]
+                    destino = eventos[eventos.index(eve)+1]["STATION_ID"]
+                    #trayecto = (origen, destino)
+                    trayecto = (estaciones[origen]["nombre"], estaciones[destino]["nombre"] )
+                    if trayecto in trayectos:
+                        trayectos[trayecto] += 1
+                    else:
+                        trayectos[trayecto] = 1
     # Ordenar los trayectos por conteo y obtener los 5 más populares
     top_5_trayectos = sorted(trayectos.items(), key=lambda x: x[1], reverse=True)[:5]
     return top_5_trayectos

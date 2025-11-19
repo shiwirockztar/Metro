@@ -12,11 +12,12 @@ estaciones = mt.load_stations('stations.info') # Cargar las estaciones desde el 
 #usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desde el archivo
 usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
 
-#top_trayectos = sys.top_trayectos_populares(usuarios)
-#print( top_trayectos )
+top_trayectos = sys.top_trayectos_populares(usuarios, estaciones)
+print( top_trayectos )
+print("Los 5 trayectos más populares son:")
+for (origen, destino), conteo in top_trayectos:
+    print(f"- {origen} -> {destino}: {conteo} viajes")
 
-distancia_promedio = sys.distancia_promedio_viaje(usuarios, estaciones)
-print(f"La distancia promedio de viaje es de {distancia_promedio:.2f} metros")
 
 import math
 
