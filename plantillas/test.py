@@ -18,9 +18,12 @@ usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desd
 #lista_estaciones = st.listar_estaciones(estaciones)
 #estacion_seleccionada = mt.menu(lista_estaciones)
 #print(estacion_seleccionada)
-hora_pico = st.hora_pico_estacion(usuarios, '020')
-print(f'La hora pico de la estación seleccionada es: {hora_pico}:00 horas')
-
+#hora_pico = st.hora_pico_estacion(usuarios, '020')
+#print(f'La hora pico de la estación seleccionada es: {hora_pico}:00 horas')
+estaciones_comunes = st.estaciones_comunes_estacion(usuarios, '020')
+print("Las estaciones más comunes relacionadas con la estación seleccionada son:")
+for est, count in estaciones_comunes.items():
+    print(f"Estación: {est}, Cantidad de viajes: {count}")
 
 import math
 

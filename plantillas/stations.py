@@ -61,3 +61,23 @@ def hora_pico_estacion(usuarios, estacion_seleccionada):
                 horas[hora] += 1  # Incrementar el conteo para esa hora
     hora_pico = horas.index(max(horas))  # Encontrar la hora con más salidas
     return hora_pico
+
+def estaciones_comunes_estacion(usuarios, estacion_seleccionada):
+    # Esta función determina las estaciones más comunes relacionadas con una estación específica.
+    # Argumentos:
+    # usuarios: Un diccionario con los registros de viajes de los usuarios.
+    # estaciones: Un diccionario con la información de las estaciones.
+    # estacion_seleccionada: La estación para la cual se desea determinar las estaciones comunes.
+    # Retorna:
+    # Un diccionario con las estaciones más comunes y su conteo.
+    
+    uso_estaciones = {}
+    for usuario in usuarios.values():
+        for viaje in usuario:
+            if viaje["STATION_ID"] == estacion_seleccionada:
+                continue  # Saltar la estación seleccionada
+            if viaje["STATION_ID"] in uso_estaciones:
+                uso_estaciones[viaje["STATION_ID"]] += 1
+            else:
+                uso_estaciones[viaje["STATION_ID"]] = 1
+    return uso_estaciones
