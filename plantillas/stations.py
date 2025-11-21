@@ -128,3 +128,17 @@ def numero_usuarios_Ingreso_hora(usuarios, estacion_seleccionada):
                 horas[hora] += 1  # Incrementar el conteo para esa hora
     return horas    
 
+def numero_usuarios_Salida_hora(usuarios, estacion_seleccionada):
+    # esta funcion calcula el numero de usuarios que salen cada hora en una estacion especifica
+    # Argumentos:
+    # usuarios: Un diccionario con los registros de viajes de los usuarios.
+    # estacion_seleccionada: La estación para la cual se desea calcular el número de usuarios por hora.
+    # Retorna:
+    # Un diccionario con el número de usuarios que salen por hora.       
+    horas = [0] * 24  # Lista para contar salidas por hora
+    for eventos in usuarios.values():
+        for evento in eventos:
+            hora = int(evento["EVENT_TIME"].split(":")[0])  # Extraer la hora
+            if evento["EVENT_TYPE"] == "OUT" and evento["STATION_ID"] == estacion_seleccionada:
+                horas[hora] += 1  # Incrementar el conteo para esa hora
+    return horas

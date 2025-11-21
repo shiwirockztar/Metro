@@ -133,7 +133,8 @@ while True:
                              "b": "Horas pico de ingreso y salida",
                              "c": "Estaciones de origen y destino más comunes",
                              "d": "Cantidad de usuarios que ingresaron por hora",
-                             "e": "Cantidad de usuarios que salieron por hora"
+                             "e": "Cantidad de usuarios que salieron por hora",
+                             "f": "Volver al menú principal"
                     }
         opcion_estacion = mt.menu(opciones_estacion)
 
@@ -177,8 +178,19 @@ while True:
                 print(f'Hora: {hora}:00 - Número de usuarios que ingresaron: {conteo}')
             pass  # Aquí debes escribir el código para manejar la opción 2
 
-        if opcion_estacion == 'f':
-            continue  # Aquí debes escribir el código para manejar la opción 6
+        if opcion_estacion == 'e':
+            time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+            mt.limpiar_pantalla()
+            print("\033[32m")  # color verde
+            print("Ha seleccionado la opción e: Cantidad de usuarios que salieron por hora")
+            usuarios_hora_salida = st.numero_usuarios_Salida_hora(usuarios, estacion_seleccionada)
+            for hora, conteo in enumerate(usuarios_hora_salida):
+                print(f'Hora: {hora}:00 - Número de usuarios que salieron: {conteo}')
+            pass  # Aquí debes escribir el código para manejar la opción 2
+
+        if opcion_estacion == 'f':  # Volver al menú principal
+            continue
+        
         pass  # Aquí debes escribir el código para manejar la opción 2
 
     elif opcion == '3':  # Salir del programa
