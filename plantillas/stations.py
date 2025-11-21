@@ -1,9 +1,5 @@
 # Módulo que contiene las funciones relacionadas con la generación de estadísticas para una estación específica
 
-"""def estacion_seleccionada(estaciones):
-    opciones = {str(i+1): est['nombre'] for i, est in enumerate(estaciones)}
-    return mt.menu(opciones)"""
-
 def listar_estaciones(estaciones):
     # Esta función retorna la lista de estaciones.
     # Argumentos:
@@ -32,12 +28,6 @@ def total_viajes_estacion(usuarios, estacion_seleccionada):
     # El total de viajes en la estación seleccionada.
     
     total_viajes = 0
-    #nombre_estacion = estaciones[estacion_seleccionada]["nombre"]
-    
-    #print(usuarios)  # DEBUG
-    #print(estacion_seleccionada)  # DEBUG
-    #print(estaciones)  # DEBUG
-    #print(nombre_estacion)
     for usuario in usuarios.values():
         for viaje in usuario:
                 if viaje["EVENT_TYPE"] == "OUT" and viaje["STATION_ID"] == estacion_seleccionada:
@@ -72,7 +62,6 @@ def estaciones_destino(usuarios, estacion_seleccionada):
     
     salidas = {}
     for estaciones in usuarios.values():
-        #estaciones:  linea por linea [{'STATION_ID': '010', 'EVENT_TIME': '04:03', 'EVENT_TYPE': 'IN'}]
         if len(estaciones) > 1:
             for evento in estaciones:
                 if evento["STATION_ID"] == estacion_seleccionada:
@@ -83,7 +72,6 @@ def estaciones_destino(usuarios, estacion_seleccionada):
                             salidas[id_estacion] += 1
                         else:
                             salidas[id_estacion] = 1
-    # Salidas: {'002': 3, '019': 5, '004': 2, '011': 6, '013': 2, '008': 1, '010': 4, '014': 3, '017': 1, '001': 2, '007': 1, '003': 2, '018': 3, '006': 1, '015': 1}             
     destino_comun = max(salidas, key=salidas.get)
     return destino_comun
 
@@ -97,7 +85,6 @@ def estaciones_origen(usuarios, estacion_seleccionada):
     
     entradas = {}
     for estaciones in usuarios.values():
-        #estaciones:  linea por linea [{'STATION_ID': '010', 'EVENT_TIME': '04:03', 'EVENT_TYPE': 'IN'}]
         if len(estaciones) > 1:
             for evento in estaciones:
                 if evento["STATION_ID"] == estacion_seleccionada:
@@ -109,7 +96,6 @@ def estaciones_origen(usuarios, estacion_seleccionada):
                         else:
                             entradas[id_estacion] = 1
                    
-    # entradas: {'002': 3, '019': 5, '004': 2, '011': 6, '013': 2, '008': 1, '010': 4, '014': 3, '017': 1, '001': 2, '007': 1, '003': 2, '018': 3, '006': 1, '015': 1}
     origen_comun = max(entradas, key=entradas.get)
     return origen_comun
 

@@ -8,8 +8,6 @@ import time
 
 estaciones = mt.load_stations('stations.info') # Cargar las estaciones desde el archivo
 usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
-#usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desde el archivo
-
 print("Bienvenido al sistema de estadísticas del metro") # 1. Mostrar mensaje de bienvenida
 
 while True:
@@ -19,10 +17,6 @@ while True:
     opciones = {"1":"Consultar estadísticas generales", "2":"Consultar estadísticas de una estación específica", "3":"Salir del programa"}
     # 3. Preguntar al usuario qué opción desea elegir:
     opcion = mt.menu(opciones)
-
-    #lista_estaciones = mt.menu(estaciones)
-    # 001 )  {'nombre': 'Niquía', 'latitud': '6.337783', 'longitud': '-75.544365'}
-    # 002 )  {'nombre': 'Bello', 'latitud': '6.330476', 'longitud': '-75.553434'}    
     
     if opcion == '1':  # Estadísticas generales
         time.sleep(0.5)  # Pausa de 0.5 segundos antes de limpiar la pantalla

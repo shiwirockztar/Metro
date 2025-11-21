@@ -96,12 +96,9 @@ def estaciones_mas_usadas(usuarios, estaciones):
                 uso_estaciones[estacion_id] += 1
             else:
                 uso_estaciones[estacion_id] = 1
-    # Convertir IDs a nombres de estaciones {'010': 6, '002': 2, '001': 6, '006': 2}
     uso_estaciones_nombres = {}
     for estacion_id, conteo in uso_estaciones.items():
-        # '010': {'nombre': 'Parque Berrio', 'latitud': '6.250490', 'longitud': '-75.568243'},
         nombre_estacion = estaciones.get(estacion_id).get("nombre")
-        #nombre_estacion = estaciones.get(estacion_id, {}).get("nombre", "Desconocido")
         uso_estaciones_nombres[nombre_estacion] = conteo
     return uso_estaciones_nombres
 
@@ -115,13 +112,9 @@ def distancia_promedio_viaje(usuarios, estaciones):
     total_distancia = 0
     total_viajes = 0
     for viajes in usuarios.values():
-        #'42433478': [{'STATION_ID': '011', 'EVENT_TIME': '04:12', 'EVENT_TYPE': 'IN'}, {'STATION_ID': '012', 'EVENT_TIME': '04:19', 'EVENT_TYPE': 'OUT'}
-        #print(viajes)
         if len(viajes) > 1:
             for i in viajes:
-                #print(i)
                 if(i["EVENT_TYPE"] == "IN"):
-                    #print(i) {'STATION_ID': '021', 'EVENT_TIME': '22:53', 'EVENT_TYPE': 'IN'}
                     P1 = [float(estaciones[i["STATION_ID"]]["latitud"]), float(estaciones[i["STATION_ID"]]["longitud"])]
                     P2 = [float(estaciones[viajes[viajes.index(i)+1]["STATION_ID"]]["latitud"]), float(estaciones[viajes[viajes.index(i)+1]["STATION_ID"]]["longitud"])]
                     distancia = geodistance(P1, P2)
@@ -155,14 +148,11 @@ def top_trayectos_populares(usuarios, estaciones):
     # Una lista con los 5 trayectos más populares y su conteo.
     trayectos = {}
     for eventos in usuarios.values():
-        #print(eventos) # [{'STATION_ID': '011', 'EVENT_TIME': '22:57', 'EVENT_TYPE': 'IN'}, {'STATION_ID': '012', 'EVENT_TIME': '23:12', 'EVENT_TYPE': 'OUT'}]
-        print("\n")
         if len(eventos) > 1 :
             for eve in eventos:
                 if eve["EVENT_TYPE"] == "IN" and eventos[eventos.index(eve)+1]["EVENT_TYPE"] == "OUT":
                     origen = eve["STATION_ID"]
                     destino = eventos[eventos.index(eve)+1]["STATION_ID"]
-                    #trayecto = (origen, destino)
                     trayecto = (estaciones[origen]["nombre"], estaciones[destino]["nombre"] )
                     if trayecto in trayectos:
                         trayectos[trayecto] += 1
