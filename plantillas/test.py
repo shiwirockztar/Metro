@@ -9,8 +9,8 @@ import system as sys
 import time
 
 estaciones = mt.load_stations('stations.info') # Cargar las estaciones desde el archivo
-#usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desde el archivo
-usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
+usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desde el archivo
+#usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
 
 
 #total_viajes = st.total_viajes_estacion(usuarios, '012')
@@ -22,9 +22,11 @@ usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde
 #print(f'La hora pico de la estación seleccionada es: {hora_pico}:00 horas')
 
 #estaciones_comunes = st.estaciones_origen(usuarios, '012')
-destino_comun = st.estaciones_destino(usuarios, '012')
-print(f'La estación destino más común de la estación seleccionada es: {estaciones[destino_comun]["nombre"]}')
-
+#destino_comun = st.estaciones_destino(usuarios, '012')
+#print(f'La estación destino más común de la estación seleccionada es: {estaciones[destino_comun]["nombre"]}')
+usuarios_hora = st.numero_usuarios_Ingreso_hora(usuarios, '010')
+for hora, conteo in enumerate(usuarios_hora):
+    print(f'Hora: {hora}:00 - Número de usuarios que ingresaron: {conteo}')
 
 
 import math

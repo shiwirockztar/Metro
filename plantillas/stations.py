@@ -112,3 +112,19 @@ def estaciones_origen(usuarios, estacion_seleccionada):
     # entradas: {'002': 3, '019': 5, '004': 2, '011': 6, '013': 2, '008': 1, '010': 4, '014': 3, '017': 1, '001': 2, '007': 1, '003': 2, '018': 3, '006': 1, '015': 1}
     origen_comun = max(entradas, key=entradas.get)
     return origen_comun
+
+def numero_usuarios_Ingreso_hora(usuarios, estacion_seleccionada):
+    # esta funcion calcula el numero de usuarios que ingresan cada hora en una estacion especifica
+    # Argumentos:
+    # usuarios: Un diccionario con los registros de viajes de los usuarios.
+    # estacion_seleccionada: La estación para la cual se desea calcular el número de usuarios por hora.
+    # Retorna:
+    # Un diccionario con el número de usuarios que ingresan por hora.       
+    horas = [0] * 24  # Lista para contar ingresos por hora
+    for eventos in usuarios.values():
+        for evento in eventos:
+            hora = int(evento["EVENT_TIME"].split(":")[0])  # Extraer la hora
+            if evento["EVENT_TYPE"] == "IN" and evento["STATION_ID"] == estacion_seleccionada:
+                horas[hora] += 1  # Incrementar el conteo para esa hora
+    return horas    
+

@@ -172,10 +172,9 @@ while True:
             mt.limpiar_pantalla()
             print("\033[32m")  # color verde
             print("Ha seleccionado la opción d: Cantidad de usuarios que ingresaron por hora")
-            entradas_por_hora = sys.usuarios_por_hora_entrada(usuarios, estacion_seleccionada)
-            print("Cantidad de usuarios que ingresaron por hora:")
-            for hora, cantidad in entradas_por_hora.items():
-                print(f"- {hora}:00 horas: {cantidad} usuarios")
+            usuarios_hora = st.numero_usuarios_Ingreso_hora(usuarios, estacion_seleccionada)
+            for hora, conteo in enumerate(usuarios_hora):
+                print(f'Hora: {hora}:00 - Número de usuarios que ingresaron: {conteo}')
             pass  # Aquí debes escribir el código para manejar la opción 2
 
         if opcion_estacion == 'f':
@@ -190,24 +189,5 @@ while True:
         # 9. Si la opción no es válida, pedir al usuario que ingrese una opción válida
         print("Opción no válida. Por favor, elija una opción correcta.")
         
-# 10. Función para consultar estadísticas generales
-def mostrar_estadisticas_generales(opcion):
-    # 11. Dependiendo de la opción seleccionada, mostrar las estadísticas generales
-    #     a. Número total de usuarios y viajes
-    #     b. Hora pico
-    #     c. Estaciones más usadas
-    #     d. Distancia promedio de viaje
-    #     e. Ingresos totales
-    #     f. Número promedio de viajes
-    #     g. Los 5 trayectos más populares
-    pass  # Implementar lógica de estadísticas generales
 
-# 12. Función para consultar estadísticas de una estación específica
-def mostrar_estadisticas_estacion(id_estacion):
-    # 13. Dependiendo de la estación seleccionada, mostrar las estadísticas
-    #     a. Total de viajes en la estación
-    #     b. Horas pico de ingreso y salida
-    #     c. Estaciones de origen y destino más comunes
-    #     d. Cantidad de usuarios que ingresaron por hora
-    #     e. Cantidad de usuarios que salieron por hora
-    pass  # Implementar lógica de estadísticas para una estación
+
