@@ -9,8 +9,8 @@ import system as sys
 import time
 
 estaciones = mt.load_stations('stations.info') # Cargar las estaciones desde el archivo
-usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desde el archivo
-#usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
+#usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desde el archivo
+usuarios = mt.load_metro_log('metro.log') # Cargar los registros de viajes desde el archivo
 
 
 #total_viajes = st.total_viajes_estacion(usuarios, '012')
@@ -20,10 +20,12 @@ usuarios = mt.load_metro_log('prueba.log') # Cargar los registros de viajes desd
 #print(estacion_seleccionada)
 #hora_pico = st.hora_pico_estacion(usuarios, '020')
 #print(f'La hora pico de la estación seleccionada es: {hora_pico}:00 horas')
-estaciones_comunes = st.estaciones_comunes_estacion(usuarios, '020')
-print("Las estaciones más comunes relacionadas con la estación seleccionada son:")
-for est, count in estaciones_comunes.items():
-    print(f"Estación: {est}, Cantidad de viajes: {count}")
+
+#estaciones_comunes = st.estaciones_origen(usuarios, '012')
+destino_comun = st.estaciones_destino(usuarios, '012')
+print(f'La estación destino más común de la estación seleccionada es: {estaciones[destino_comun]["nombre"]}')
+
+
 
 import math
 

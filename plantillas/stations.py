@@ -62,22 +62,53 @@ def hora_pico_estacion(usuarios, estacion_seleccionada):
     hora_pico = horas.index(max(horas))  # Encontrar la hora con más salidas
     return hora_pico
 
-def estaciones_comunes_estacion(usuarios, estacion_seleccionada):
+def estaciones_destino(usuarios, estacion_seleccionada):
     # Esta función determina las estaciones más comunes relacionadas con una estación específica.
     # Argumentos:
     # usuarios: Un diccionario con los registros de viajes de los usuarios.
-    # estaciones: Un diccionario con la información de las estaciones.
     # estacion_seleccionada: La estación para la cual se desea determinar las estaciones comunes.
     # Retorna:
     # Un diccionario con las estaciones más comunes y su conteo.
     
-    uso_estaciones = {}
-    for usuario in usuarios.values():
-        for viaje in usuario:
-            if viaje["STATION_ID"] == estacion_seleccionada:
-                continue  # Saltar la estación seleccionada
-            if viaje["STATION_ID"] in uso_estaciones:
-                uso_estaciones[viaje["STATION_ID"]] += 1
-            else:
-                uso_estaciones[viaje["STATION_ID"]] = 1
-    return uso_estaciones
+    salidas = {}
+    for estaciones in usuarios.values():
+        #estaciones:  linea por linea [{'STATION_ID': '010', 'EVENT_TIME': '04:03', 'EVENT_TYPE': 'IN'}]
+        if len(estaciones) > 1:
+            for evento in estaciones:
+                if evento["STATION_ID"] == estacion_seleccionada:
+                    indice = estaciones.index(evento)
+                    if evento["EVENT_TYPE"] == "IN":
+                        id_estacion = estaciones[indice+1]["STATION_ID"]   # obtengo el id de la siguiente estación
+                        if id_estacion in salidas:
+                            salidas[id_estacion] += 1
+                        else:
+                            salidas[id_estacion] = 1
+    # Salidas: {'002': 3, '019': 5, '004': 2, '011': 6, '013': 2, '008': 1, '010': 4, '014': 3, '017': 1, '001': 2, '007': 1, '003': 2, '018': 3, '006': 1, '015': 1}             
+    destino_comun = max(salidas, key=salidas.get)
+    return destino_comun
+
+def estaciones_origen(usuarios, estacion_seleccionada):
+    # Esta función determina las estaciones más comunes relacionadas con una estación específica.
+    # Argumentos:
+    # usuarios: Un diccionario con los registros de viajes de los usuarios.
+    # estacion_seleccionada: La estación para la cual se desea determinar las estaciones comunes.
+    # Retorna:
+    # Un diccionario con las estaciones más comunes y su conteo.
+    
+    entradas = {}
+    for estaciones in usuarios.values():
+        #estaciones:  linea por linea [{'STATION_ID': '010', 'EVENT_TIME': '04:03', 'EVENT_TYPE': 'IN'}]
+        if len(estaciones) > 1:
+            for evento in estaciones:
+                if evento["STATION_ID"] == estacion_seleccionada:
+                    indice = estaciones.index(evento)
+                    if evento["EVENT_TYPE"] == "OUT":
+                        id_estacion = estaciones[indice-1]["STATION_ID"]   # obtengo el id de la siguiente estación
+                        if id_estacion in entradas:
+                            entradas[id_estacion] += 1
+                        else:
+                            entradas[id_estacion] = 1
+                   
+    # entradas: {'002': 3, '019': 5, '004': 2, '011': 6, '013': 2, '008': 1, '010': 4, '014': 3, '017': 1, '001': 2, '007': 1, '003': 2, '018': 3, '006': 1, '015': 1}
+    origen_comun = max(entradas, key=entradas.get)
+    return origen_comun

@@ -161,6 +161,21 @@ while True:
             mt.limpiar_pantalla()
             print("\033[32m")  # color verde
             print("Ha seleccionado la opción c: Estaciones de origen y destino más comunes")
+            estaciones_origen = st.estaciones_origen(usuarios, estacion_seleccionada)
+            print(f'La estación origen más común de la estación seleccionada es: {estaciones[estaciones_origen]["nombre"]}')
+            estaciones_destino = st.estaciones_destino(usuarios, estacion_seleccionada)
+            print(f'La estación destino más común de la estación seleccionada es: {estaciones[estaciones_destino]["nombre"]}')  
+            pass  # Aquí debes escribir el código para manejar la opción 2
+
+        if opcion_estacion == 'd':
+            time.sleep(1)  # Pausa de 1 segundos antes de limpiar la pantalla
+            mt.limpiar_pantalla()
+            print("\033[32m")  # color verde
+            print("Ha seleccionado la opción d: Cantidad de usuarios que ingresaron por hora")
+            entradas_por_hora = sys.usuarios_por_hora_entrada(usuarios, estacion_seleccionada)
+            print("Cantidad de usuarios que ingresaron por hora:")
+            for hora, cantidad in entradas_por_hora.items():
+                print(f"- {hora}:00 horas: {cantidad} usuarios")
             pass  # Aquí debes escribir el código para manejar la opción 2
 
         if opcion_estacion == 'f':
